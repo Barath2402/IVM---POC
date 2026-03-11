@@ -7,7 +7,8 @@ import {
     Bot,
     SplitSquareHorizontal,
     Upload,
-    Activity
+    Activity,
+    ClipboardList
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -20,6 +21,7 @@ const navigation = [
     { name: 'Agent Insights', href: '/insights', icon: Bot },
     { name: 'APIM Split View', href: '/split', icon: SplitSquareHorizontal },
     { name: 'AIST Pipeline', href: '/pipeline', icon: Activity },
+    { name: 'Inventory Data', href: '/inventory', icon: ClipboardList },
 ];
 
 export function Sidebar() {

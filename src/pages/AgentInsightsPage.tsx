@@ -33,7 +33,7 @@ export function AgentInsightsPage() {
     const [records, setRecords] = useState<VulnerabilityRecord[]>([]);
 
     const [messages, setMessages] = useState<{ role: 'user' | 'agent'; text: string; }[]>([
-        { role: 'agent', text: 'Hello! I am the AIST Security Assistant. I can scan your customized dashboard and provide specific remediation recommendations based on the 54-column IASP schema. Ask me about a CVE, Application, or App Owner!' }
+        { role: 'agent', text: 'Hello! I am the AIST Security Assistant. I can scan your customized dashboard and provide specific remediation recommendations based on the 54-column IASP schema. Ask me about a CVE, Application, App Owner, or APM ID!' }
     ]);
     const [chatInput, setChatInput] = useState('');
 
@@ -145,7 +145,8 @@ export function AgentInsightsPage() {
             const matchingRecords = records.filter(r =>
                 r.vulnerabilityId.toLowerCase().includes(query) ||
                 r.applicationName.toLowerCase().includes(query) ||
-                (r.appOwner && r.appOwner.toLowerCase().includes(query))
+                (r.appOwner && r.appOwner.toLowerCase().includes(query)) ||
+                (r.apimId && r.apimId.toLowerCase().includes(query))
             );
 
             let agentResponse = '';

@@ -91,6 +91,37 @@ export interface CMDBEntry {
     environment: string;
 }
 
+export interface AWSInventoryEntry {
+    ip: string;
+    instanceId: string;
+    environment: string;
+    region: string;
+}
+
+export interface AzureInventoryEntry {
+    ip: string;
+    resourceId: string;
+    environment: string;
+    location: string;
+}
+
+export interface CloudAgentEntry {
+    ip: string;
+    agentId: string;
+    lastCheckedIn: string; // ISO or date string
+    status: string;
+}
+
+export interface InventoryComparisonResult {
+    matchedIps: string[];
+    missingFromInventory: string[]; // In Cloud Agent but not in AWS/Azure
+    environmentCounts: {
+        aws: Record<string, number>;
+        azure: Record<string, number>;
+    };
+    notReportingAgents: CloudAgentEntry[];
+}
+
 export interface AgentAlert {
     id: string;
     type: 'critical' | 'warning' | 'info';

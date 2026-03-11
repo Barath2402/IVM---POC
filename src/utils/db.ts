@@ -3,6 +3,9 @@ import type { VulnerabilityRecord, MetricSummary, CMDBEntry } from '../types';
 
 const STORAGE_KEY = 'ivm_dashboard_data';
 const CMDB_KEY = 'ivm_cmdb_data';
+const AWS_INV_KEY = 'ivm_aws_inventory';
+const AZURE_INV_KEY = 'ivm_azure_inventory';
+const CLOUD_AGENT_KEY = 'ivm_cloud_agent_data';
 
 export const db = {
     getRecords: async (): Promise<VulnerabilityRecord[]> => {
@@ -25,6 +28,9 @@ export const db = {
     clearRecords: async (): Promise<void> => {
         await localforage.removeItem(STORAGE_KEY);
         await localforage.removeItem(CMDB_KEY);
+        await localforage.removeItem(AWS_INV_KEY);
+        await localforage.removeItem(AZURE_INV_KEY);
+        await localforage.removeItem(CLOUD_AGENT_KEY);
     },
 
     getCMDB: async (): Promise<CMDBEntry[]> => {
@@ -42,6 +48,30 @@ export const db = {
         } catch (e) {
             console.error('Failed to save CMDB to localforage:', e);
         }
+    },
+
+    getAWSInventory: async (): Promise<any[]> => {
+        return (await localforage.getItem(AWS_INV_KEY)) || [];
+    },
+
+    setAWSInventory: async (records: any[]): Promise<void> => {
+        await localforage.setItem(AWS_INV_KEY, records);
+    },
+
+    getAzureInventory: async (): Promise<any[]> => {
+        return (await localforage.getItem(AZURE_INV_KEY)) || [];
+    },
+
+    setAzureInventory: async (records: any[]): Promise<void> => {
+        await localforage.setItem(AZURE_INV_KEY, records);
+    },
+
+    getCloudAgents: async (): Promise<any[]> => {
+        return (await localforage.getItem(CLOUD_AGENT_KEY)) || [];
+    },
+
+    setCloudAgents: async (records: any[]): Promise<void> => {
+        await localforage.setItem(CLOUD_AGENT_KEY, records);
     },
 
     getMetrics: async (): Promise<MetricSummary> => {
